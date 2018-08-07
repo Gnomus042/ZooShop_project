@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZooShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AnimalKinds">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Products_AnimalKinds" FromRole="AnimalKinds" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Citys">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Providers" Relationship="Self.FK_Providers_Citys" FromRole="Citys" ToRole="Providers" />
+  </EntityType>
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Card" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="Tel" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Orders" Relationship="ZooShopModel.FK_Orders_Clients" FromRole="Clients" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="ProductKinds">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Kind" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Products_ProductKinds" FromRole="ProductKinds" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="Price" Type="Single" Nullable="false" />
+    <Property Name="Inf" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Anim_kind" Type="Int32" Nullable="false" />
+    <Property Name="Product_kind" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AnimalKinds" Relationship="Self.FK_Products_AnimalKinds" FromRole="Products" ToRole="AnimalKinds" />
+    <NavigationProperty Name="ProductKinds" Relationship="Self.FK_Products_ProductKinds" FromRole="Products" ToRole="ProductKinds" />
+    <NavigationProperty Name="Providers" Relationship="Self.Prov_Product" FromRole="Products" ToRole="Providers" />
+    <NavigationProperty Name="Orders" Relationship="ZooShopModel.FK_Orders_Products" FromRole="Products" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Providers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="City" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Citys" Relationship="Self.FK_Providers_Citys" FromRole="Providers" ToRole="Citys" />
+    <NavigationProperty Name="Products" Relationship="Self.Prov_Product" FromRole="Providers" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="ZooShopModel.FK_Orders_Status" FromRole="Status" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Products_AnimalKinds">
+    <End Role="AnimalKinds" Type="Self.AnimalKinds" Multiplicity="1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AnimalKinds">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="Anim_kind" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Providers_Citys">
+    <End Role="Citys" Type="Self.Citys" Multiplicity="1" />
+    <End Role="Providers" Type="Self.Providers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Citys">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Providers">
+        <PropertyRef Name="City" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_ProductKinds">
+    <End Role="ProductKinds" Type="Self.ProductKinds" Multiplicity="1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductKinds">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="Product_kind" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Prov_Product">
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <End Role="Providers" Type="Self.Providers" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="ZooShopEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AnimalKinds" EntityType="Self.AnimalKinds" />
+    <EntitySet Name="Citys" EntityType="Self.Citys" />
+    <EntitySet Name="Clients" EntityType="Self.Clients" />
+    <EntitySet Name="ProductKinds" EntityType="Self.ProductKinds" />
+    <EntitySet Name="Products" EntityType="Self.Products" />
+    <EntitySet Name="Providers" EntityType="Self.Providers" />
+    <EntitySet Name="Status" EntityType="Self.Status" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_Products_AnimalKinds" Association="Self.FK_Products_AnimalKinds">
+      <End Role="AnimalKinds" EntitySet="AnimalKinds" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Providers_Citys" Association="Self.FK_Providers_Citys">
+      <End Role="Citys" EntitySet="Citys" />
+      <End Role="Providers" EntitySet="Providers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_ProductKinds" Association="Self.FK_Products_ProductKinds">
+      <End Role="ProductKinds" EntitySet="ProductKinds" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="Prov_Product" Association="Self.Prov_Product">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Providers" EntitySet="Providers" />
+    </AssociationSet>
+    <EntitySet Name="Orders" EntityType="ZooShopModel.Orders" />
+    <AssociationSet Name="FK_Orders_Clients" Association="ZooShopModel.FK_Orders_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Products" Association="ZooShopModel.FK_Orders_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Status" Association="ZooShopModel.FK_Orders_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Id_client" Type="Int32" Nullable="false" />
+    <Property Name="Id_prod" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Clients" Relationship="ZooShopModel.FK_Orders_Clients" FromRole="Orders" ToRole="Clients" />
+    <NavigationProperty Name="Products" Relationship="ZooShopModel.FK_Orders_Products" FromRole="Orders" ToRole="Products" />
+    <NavigationProperty Name="Status1" Relationship="ZooShopModel.FK_Orders_Status" FromRole="Orders" ToRole="Status" />
+  </EntityType>
+  <Association Name="FK_Orders_Clients">
+    <End Type="ZooShopModel.Clients" Role="Clients" Multiplicity="1" />
+    <End Type="ZooShopModel.Orders" Role="Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="Id_client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Products">
+    <End Type="ZooShopModel.Products" Role="Products" Multiplicity="1" />
+    <End Type="ZooShopModel.Orders" Role="Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="Id_prod" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Status">
+    <End Type="ZooShopModel.Status" Role="Status" Multiplicity="1" />
+    <End Type="ZooShopModel.Orders" Role="Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

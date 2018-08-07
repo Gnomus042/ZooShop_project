@@ -1,0 +1,84 @@
+﻿@model ZooWeb.Models.FilterModel
+
+<style>
+    .checkbox-container{
+    }
+</style>
+
+@using (Html.BeginForm("Filter", "Product", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+       
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            @Html.EditorFor(model => model.UseQuantity)
+            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label" })
+
+            <div>
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.UsePrice)
+            @Html.LabelFor(model => model.UsePrice, htmlAttributes: new { @class = "control-label" })
+        </div>
+
+        <div class="form-group">
+           
+            @Html.LabelFor(model => model.PriceFrom, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.EditorFor(model => model.PriceFrom, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PriceFrom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PriceTo, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.EditorFor(model => model.PriceTo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PriceTo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.UseAnimKind)
+            @Html.LabelFor(model => model.AnimKind, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.DropDownListFor(model => model.AnimKind, ViewBag.AnimKinds as SelectList, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AnimKind, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.UseProdKind)
+            @Html.LabelFor(model => model.ProdKind, htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.ProdKind, ViewBag.ProductKinds as SelectList, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProdKind, "", new { @class = "text-danger" })
+        </div>
+            <div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

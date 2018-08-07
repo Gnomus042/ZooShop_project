@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9d4d8e7625704cf2b48453e6ab7b3527" Name="Diagram1">
+        <EntityTypeShape EntityType="ZooShopModel.AnimalKinds" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZooShopModel.Citys" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZooShopModel.Clients" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZooShopModel.ProductKinds" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZooShopModel.Products" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZooShopModel.Providers" Width="1.5" PointX="6.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZooShopModel.Status" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZooShopModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="ZooShopModel.FK_Products_AnimalKinds" ManuallyRouted="false" />
+        <AssociationConnector Association="ZooShopModel.FK_Providers_Citys" ManuallyRouted="false" />
+        <AssociationConnector Association="ZooShopModel.FK_Products_ProductKinds" ManuallyRouted="false" />
+        <AssociationConnector Association="ZooShopModel.Prov_Product" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ZooShopModel.Orders" Width="1.5" PointX="8.25" PointY="7.375" />
+        <AssociationConnector Association="ZooShopModel.FK_Orders_Clients" />
+        <AssociationConnector Association="ZooShopModel.FK_Orders_Products" />
+        <AssociationConnector Association="ZooShopModel.FK_Orders_Status" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ZooDataLibrary.Orders>
+
+@{
+    ViewBag.Title = "OrdersTable";
+}
+
+
+<div class="col-md-12">
+    <div class="col-md-10">
+        <h2>OrdersTable</h2>
+    </div>
+   
+    <div class="col-md-2">
+        <br />
+        @Html.ActionLink("Create", "Create", "Order", htmlAttributes: new { @class = "btn btn-primary" })
+    </div>
+</div>
+<div class="col-md-4">
+    @Html.Partial("Filter", ViewBag.filter as ZooWeb.Models.OrdersFilter, new ViewDataDictionary(this.ViewData))
+</div>
+<div class="col-md-8">
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id_client)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Id_prod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Clients.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Products.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status1.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
+    </div>

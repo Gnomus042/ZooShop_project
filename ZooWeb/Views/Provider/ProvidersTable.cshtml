@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ZooDataLibrary.Providers>
+
+@{
+    ViewBag.Title = "ProvidersTable";
+}
+
+<div class="col-md-12">
+    <div class="col-md-10">
+        <h2>ProvidersTable</h2>
+    </div>
+    <div class="col-md-2">
+        <br />
+        @Html.ActionLink("Create", "Create", "Provider", htmlAttributes: new { @class = "btn btn-primary" })
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Citys.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
